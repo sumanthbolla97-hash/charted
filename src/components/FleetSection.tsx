@@ -427,7 +427,7 @@ function AircraftModal({ aircraft, onClose }: { aircraft: Aircraft; onClose: () 
               onClose();
               openInquiry();
             }}
-            className="w-full mt-10 py-4 bg-[#C6A87C] text-black font-medium uppercase text-xs tracking-[0.2em] hover:bg-white transition-colors"
+            className="w-full mt-10 py-5 bg-[#C6A87C] text-black font-bold uppercase text-sm tracking-[0.2em] hover:bg-white hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 shadow-[0_0_20px_rgba(198,168,124,0.3)] hover:shadow-[0_0_30px_rgba(255,255,255,0.4)]"
           >
             Inquire About This Aircraft
           </button>
