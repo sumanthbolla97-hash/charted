@@ -1,9 +1,21 @@
 import { GoogleGenAI } from "@google/genai";
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+let aiInstance: GoogleGenAI | null = null;
+
+function getAI() {
+  if (!aiInstance) {
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) {
+      throw new Error("GEMINI_API_KEY is not defined. Please set it in your environment variables.");
+    }
+    aiInstance = new GoogleGenAI({ apiKey });
+  }
+  return aiInstance;
+}
 
 export async function chatWithConcierge(message: string, history: { role: string; parts: { text: string }[] }[]) {
   try {
+    const ai = getAI();
     const model = "gemini-3-flash-preview";
     
     const systemInstruction = `You are the AI Concierge for Vista Charter, the world's premier private aviation service. 
@@ -33,6 +45,9 @@ export async function chatWithConcierge(message: string, history: { role: string
     return result.text;
   } catch (error) {
     console.error("AI Concierge Error:", error);
+    if (error instanceof Error && error.message.includes("GEMINI_API_KEY")) {
+      return "The AI Concierge is currently offline as the API key is missing. Please configure the GEMINI_API_KEY environment variable.";
+    }
     return "I apologize, but I am momentarily unable to access the flight systems. Please try again shortly.";
   }
 }
