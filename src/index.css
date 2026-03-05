@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Cormorant Garamond", serif;
+  --font-sans: "Montserrat", sans-serif;
+  
+  --color-luxury-black: #050505;
+  --color-luxury-gold: #C6A87C; /* More muted, elegant gold */
+  --color-luxury-white: #F5F5F5;
+  --color-luxury-gray: #2A2A2A;
+}
+
+body {
+  background-color: var(--color-luxury-black);
+  color: var(--color-luxury-white);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  letter-spacing: 0.02em; /* Slight letter spacing for elegance */
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
+  font-weight: 300; /* Lighter weight for headings */
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #C6A87C;
+}
+
+.gold-gradient {
+  background: linear-gradient(135deg, #C6A87C 0%, #A88B5E 100%);
+}
+
+.text-gold {
+  color: #C6A87C;
+}
+
+.border-gold {
+  border-color: #C6A87C;
+}
