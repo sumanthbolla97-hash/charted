@@ -4,7 +4,7 @@ const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
 export async function chatWithConcierge(message: string, history: { role: string; parts: { text: string }[] }[]) {
   try {
-    const model = "gemini-2.5-flash-lite-preview";
+    const model = "gemini-3-flash-preview";
     
     const systemInstruction = `You are the AI Concierge for Vista Charter, the world's premier private aviation service. 
     Your tone is sophisticated, professional, efficient, and welcoming. You are capable of acting like a CEO's executive assistant.
