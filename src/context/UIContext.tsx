@@ -1,5 +1,13 @@
 import { createContext, useContext, useState, ReactNode } from 'react';
 
+export interface QuoteRequest {
+  tripType: 'one-way' | 'round-trip' | 'multi-city';
+  from: string;
+  to: string;
+  date: string;
+  pax: string;
+}
+
 interface UIContextType {
   isChatOpen: boolean;
   openChat: (initialMessage?: string) => void;
@@ -14,6 +22,10 @@ interface UIContextType {
   isAuthOpen: boolean;
   openAuth: () => void;
   closeAuth: () => void;
+  isQuotesOpen: boolean;
+  quoteRequest: QuoteRequest | null;
+  openQuotes: (request: QuoteRequest) => void;
+  closeQuotes: () => void;
 }
 
 const UIContext = createContext<UIContextType | undefined>(undefined);
@@ -24,6 +36,8 @@ export function UIProvider({ children }: { children: ReactNode }) {
   const [isFleetOpen, setIsFleetOpen] = useState(false);
   const [isInquiryOpen, setIsInquiryOpen] = useState(false);
   const [isAuthOpen, setIsAuthOpen] = useState(false);
+  const [isQuotesOpen, setIsQuotesOpen] = useState(false);
+  const [quoteRequest, setQuoteRequest] = useState<QuoteRequest | null>(null);
 
   const openChat = (msg?: string) => {
     if (msg) setInitialMessage(msg);
@@ -42,6 +56,11 @@ export function UIProvider({ children }: { children: ReactNode }) {
   const closeInquiry = () => setIsInquiryOpen(false);
   const openAuth = () => setIsAuthOpen(true);
   const closeAuth = () => setIsAuthOpen(false);
+  const openQuotes = (request: QuoteRequest) => {
+    setQuoteRequest(request);
+    setIsQuotesOpen(true);
+  };
+  const closeQuotes = () => setIsQuotesOpen(false);
 
   return (
     <UIContext.Provider value={{ 
@@ -57,7 +76,11 @@ export function UIProvider({ children }: { children: ReactNode }) {
       closeInquiry,
       isAuthOpen,
       openAuth,
-      closeAuth
+      closeAuth,
+      isQuotesOpen,
+      quoteRequest,
+      openQuotes,
+      closeQuotes
     }}>
       {children}
     </UIContext.Provider>

@@ -7,9 +7,23 @@ import { Experience } from './components/Experience';
 import { AIConcierge } from './components/AIConcierge';
 import { InquiryModal } from './components/InquiryModal';
 import { AuthModal } from './components/AuthModal';
+import { LiveQuotesModal } from './components/LiveQuotesModal';
+import { MockCheckoutPage } from './components/MockCheckoutPage';
 import { Instagram, Linkedin, Twitter, Facebook } from 'lucide-react';
 
 function App() {
+  const params = new URLSearchParams(window.location.search);
+  const isMockCheckout = params.get('mockCheckout') === '1';
+
+  if (isMockCheckout) {
+    return (
+      <div className="min-h-screen bg-[#050505] text-white selection:bg-[#D4AF37] selection:text-black">
+        <MockCheckoutPage />
+        <AIConcierge />
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-[#050505] text-white selection:bg-[#D4AF37] selection:text-black">
       <Navbar />
@@ -80,6 +94,7 @@ function App() {
       <FleetOverlay />
       <InquiryModal />
       <AuthModal />
+      <LiveQuotesModal />
     </div>
   );
 }
