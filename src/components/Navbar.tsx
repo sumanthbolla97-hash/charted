@@ -1,13 +1,15 @@
 import { useState, useEffect } from 'react';
-import { Menu, X, User } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from '../lib/utils';
 import { useUI } from '../context/UIContext';
+import { useAuth } from '../context/AuthContext';
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { openChat, openFleet, openInquiry } = useUI();
+  const { openFleet, openInquiry, openAuth } = useUI();
+  const { user, logout } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -56,12 +58,26 @@ export function Navbar() {
 
           {/* Actions */}
           <div className="flex items-center gap-8">
-            <button 
-              onClick={() => openChat("I'd like to log in to my account.")}
-              className="hidden md:flex items-center gap-2 text-[11px] uppercase tracking-[0.15em] text-white hover:text-[#C6A87C] transition-colors"
-            >
-              Login
-            </button>
+            {!user ? (
+              <button
+                onClick={openAuth}
+                className="hidden md:flex items-center gap-2 text-[11px] uppercase tracking-[0.15em] text-white hover:text-[#C6A87C] transition-colors"
+              >
+                Login
+              </button>
+            ) : (
+              <div className="hidden md:flex items-center gap-4">
+                <span className="text-[10px] uppercase tracking-[0.15em] text-gray-300 max-w-[180px] truncate">
+                  {user.email}
+                </span>
+                <button
+                  onClick={logout}
+                  className="text-[11px] uppercase tracking-[0.15em] text-white hover:text-[#C6A87C] transition-colors"
+                >
+                  Logout
+                </button>
+              </div>
+            )}
             <button 
               onClick={openInquiry}
               className="px-8 py-3 bg-white text-black hover:bg-[#C6A87C] hover:text-white transition-all duration-500 text-[10px] uppercase tracking-[0.2em] font-medium"
@@ -105,6 +121,16 @@ export function Navbar() {
                       e.preventDefault();
                       setIsMobileMenuOpen(false);
                       openFleet();
+                      return;
+                    }
+                    if (link === 'Login') {
+                      e.preventDefault();
+                      setIsMobileMenuOpen(false);
+                      if (user) {
+                        void logout();
+                      } else {
+                        openAuth();
+                      }
                     }
                   }}
                   initial={{ opacity: 0, y: 20 }}
@@ -112,7 +138,7 @@ export function Navbar() {
                   transition={{ delay: 0.1 + (i * 0.05) }}
                   className="font-serif text-4xl md:text-5xl text-white hover:text-[#C6A87C] transition-colors font-light"
                 >
-                  {link}
+                  {link === 'Login' && user ? 'Logout' : link}
                 </motion.a>
               ))}
             </div>
@@ -121,7 +147,7 @@ export function Navbar() {
               <button 
                 onClick={() => {
                   setIsMobileMenuOpen(false);
-                  openChat("I'd like to request a flight.");
+                  openInquiry();
                 }}
                 className="w-full py-6 bg-[#C6A87C] text-white text-xs uppercase tracking-[0.2em] hover:bg-white hover:text-black transition-colors duration-500"
               >

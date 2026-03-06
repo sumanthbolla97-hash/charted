@@ -32,7 +32,7 @@ const fleet: Aircraft[] = [
     id: "global-7500",
     name: "Global 7500",
     category: "Ultra Long Range",
-    image: "https://commons.wikimedia.org/wiki/Special:FilePath/EBACE_2018,_Le_Grand-Saconnex_(BL7C0351).jpg?width=2500",
+    image: "https://commons.wikimedia.org/wiki/Special:FilePath/Bombardier%20Global%207500%20on%20static%20display,%20EBACE%202018,%20Le%20Grand-Saconnex%20(BL7C0578).jpg?width=3840",
     description: "The Global 7500 aircraft stands alone as the world's largest and longest range business jet. Within its luxurious interior are four true living spaces, a full size kitchen and a dedicated crew suite.",
     stats: {
       passengers: "19 Passengers",
@@ -55,7 +55,7 @@ const fleet: Aircraft[] = [
     id: "gulfstream-g650er",
     name: "Gulfstream G650ER",
     category: "Ultra Long Range",
-    image: "https://jetservicenl.com/files/aircraft/gulfstream-g650.1.jpg",
+    image: "https://commons.wikimedia.org/wiki/Special:FilePath/Gulfstream%20G650ER,%20EBACE%202018,%20Le%20Grand-Saconnex%20(BL7C0740).jpg?width=3840",
     description: "The Gulfstream G650ER extends the non-stop reach of the industry's highest performance long-range business aircraft to 7,500 nautical miles.",
     stats: {
       passengers: "19 Passengers",
@@ -78,7 +78,7 @@ const fleet: Aircraft[] = [
     id: "falcon-8x",
     name: "Dassault Falcon 8X",
     category: "Ultra Long Range",
-    image: "https://commons.wikimedia.org/wiki/Special:FilePath/Dassault_Falcon_8X.jpg?width=2500",
+    image: "https://commons.wikimedia.org/wiki/Special:FilePath/Dassault%20Falcon%208X,%20Paris%20Air%20Show%202019,%20Le%20Bourget%20(SIAE8602).jpg?width=3840",
     description: "The Falcon 8X offers the longest range in the Falcon family, along with the most extensive choice of cabin configurations.",
     stats: {
       passengers: "16 Passengers",
@@ -101,7 +101,7 @@ const fleet: Aircraft[] = [
     id: "gulfstream-g500",
     name: "Gulfstream G500",
     category: "Large Jet",
-    image: "https://commons.wikimedia.org/wiki/Special:FilePath/Airshow-20180210-12-17-00-DSC01312_(28423253559).jpg?width=2500",
+    image: "https://commons.wikimedia.org/wiki/Special:FilePath/Gulfstream%20G500,%20EBACE%202018,%20Le%20Grand-Saconnex%20(BL7C0677).jpg?width=3840",
     description: "The G500 delivers the optimal balance of speed, maneuverability, and comfort that helps you maximize every minute of your travel.",
     stats: {
       passengers: "19 Passengers",
@@ -124,7 +124,7 @@ const fleet: Aircraft[] = [
     id: "challenger-650",
     name: "Challenger 650",
     category: "Large Jet",
-    image: "https://commons.wikimedia.org/wiki/Special:FilePath/Static_display,_EBACE_2018,_Le_Grand-Saconnex_(BL7C0611).jpg?width=2500",
+    image: "https://commons.wikimedia.org/wiki/Special:FilePath/Static%20display,%20EBACE%202018,%20Le%20Grand-Saconnex%20(BL7C0611).jpg?width=3840",
     description: "The Challenger 650 aircraft is the best-selling large business jet platform of all time, offering a wider cabin than any competitor in its class.",
     stats: {
       passengers: "12 Passengers",
@@ -147,7 +147,7 @@ const fleet: Aircraft[] = [
     id: "legacy-650e",
     name: "Embraer Legacy 650E",
     category: "Large Jet",
-    image: "https://commons.wikimedia.org/wiki/Special:FilePath/Embraer_Legacy_650_Exterior_facing_left.JPG?width=2500",
+    image: "https://commons.wikimedia.org/wiki/Special:FilePath/Embraer%20ERJ-135BJ%20Legacy%20650,%20Private%20JP7348403.jpg?width=3840",
     description: "With three distinct cabin zones, the Legacy 650E has the largest cabin, galley, and lavatory in its class.",
     stats: {
       passengers: "14 Passengers",
@@ -170,7 +170,7 @@ const fleet: Aircraft[] = [
     id: "praetor-600",
     name: "Embraer Praetor 600",
     category: "Super Midsize",
-    image: "https://commons.wikimedia.org/wiki/Special:FilePath/EBACE_2019,_Le_Grand-Saconnex_(EB190242).jpg?width=2500",
+    image: "https://commons.wikimedia.org/wiki/Special:FilePath/EBACE%202019,%20Le%20Grand-Saconnex%20(EB190242).jpg?width=3840",
     description: "The Praetor 600 is the world's farthest-flying super-midsize business jet, allowing non-stop flights from London to New York.",
     stats: {
       passengers: "12 Passengers",
@@ -193,7 +193,7 @@ const fleet: Aircraft[] = [
     id: "challenger-350",
     name: "Challenger 350",
     category: "Super Midsize",
-    image: "https://commons.wikimedia.org/wiki/Special:FilePath/OE-HRS_Bombardier_BD-100_-1A10_Challenger_350_CL35_-_IJM_(28329541526).jpg?width=2500",
+    image: "https://commons.wikimedia.org/wiki/Special:FilePath/CS-CHE%20Bombardier%20Challenger%20350%20Netjets%20Europe%20(28570675881).jpg?width=3840",
     description: "The best-selling business jet platform of the last decade. The Challenger 350 aircraft features the widest cabin in its class.",
     stats: {
       passengers: "10 Passengers",
@@ -216,7 +216,7 @@ const fleet: Aircraft[] = [
     id: "citation-longitude",
     name: "Cessna Citation Longitude",
     category: "Super Midsize",
-    image: "https://commons.wikimedia.org/wiki/Special:FilePath/EBACE_2019,_Le_Grand-Saconnex_(EB190149).jpg?width=2500",
+    image: "https://commons.wikimedia.org/wiki/Special:FilePath/Cessna%20Citation%20Longitude%20N807QS.jpg?width=3840",
     description: "The Citation Longitude is designed with your comfort and efficiency in mind, featuring the quietest cabin in its class.",
     stats: {
       passengers: "12 Passengers",
@@ -239,7 +239,7 @@ const fleet: Aircraft[] = [
     id: "pilatus-pc24",
     name: "Pilatus PC-24",
     category: "Light Jet",
-    image: "https://commons.wikimedia.org/wiki/Special:FilePath/Antwerp_Pilatus_PC-24_LX-FCB_01.jpg?width=2500",
+    image: "https://commons.wikimedia.org/wiki/Special:FilePath/Pilatus%20PC-24,%20AERO%20Friedrichshafen%20201%20(1X7A4404).jpg?width=3840",
     description: "The PC-24 is the only aircraft combining the versatility of a turboprop with the cabin size of a medium-light jet and the performance of a light jet.",
     stats: {
       passengers: "10 Passengers",

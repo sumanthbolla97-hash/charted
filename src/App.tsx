@@ -6,6 +6,7 @@ import { EmptyLegs } from './components/EmptyLegs';
 import { Experience } from './components/Experience';
 import { AIConcierge } from './components/AIConcierge';
 import { InquiryModal } from './components/InquiryModal';
+import { AuthModal } from './components/AuthModal';
 import { Instagram, Linkedin, Twitter, Facebook } from 'lucide-react';
 
 function App() {
@@ -78,6 +79,7 @@ function App() {
       <AIConcierge />
       <FleetOverlay />
       <InquiryModal />
+      <AuthModal />
     </div>
   );
 }

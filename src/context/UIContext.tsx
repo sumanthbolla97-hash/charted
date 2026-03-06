@@ -11,6 +11,9 @@ interface UIContextType {
   isInquiryOpen: boolean;
   openInquiry: () => void;
   closeInquiry: () => void;
+  isAuthOpen: boolean;
+  openAuth: () => void;
+  closeAuth: () => void;
 }
 
 const UIContext = createContext<UIContextType | undefined>(undefined);
@@ -20,6 +23,7 @@ export function UIProvider({ children }: { children: ReactNode }) {
   const [initialMessage, setInitialMessage] = useState('');
   const [isFleetOpen, setIsFleetOpen] = useState(false);
   const [isInquiryOpen, setIsInquiryOpen] = useState(false);
+  const [isAuthOpen, setIsAuthOpen] = useState(false);
 
   const openChat = (msg?: string) => {
     if (msg) setInitialMessage(msg);
@@ -36,6 +40,8 @@ export function UIProvider({ children }: { children: ReactNode }) {
 
   const openInquiry = () => setIsInquiryOpen(true);
   const closeInquiry = () => setIsInquiryOpen(false);
+  const openAuth = () => setIsAuthOpen(true);
+  const closeAuth = () => setIsAuthOpen(false);
 
   return (
     <UIContext.Provider value={{ 
@@ -48,7 +54,10 @@ export function UIProvider({ children }: { children: ReactNode }) {
       closeFleet,
       isInquiryOpen,
       openInquiry,
-      closeInquiry
+      closeInquiry,
+      isAuthOpen,
+      openAuth,
+      closeAuth
     }}>
       {children}
     </UIContext.Provider>
