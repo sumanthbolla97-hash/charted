@@ -9,6 +9,7 @@ import { InquiryModal } from './components/InquiryModal';
 import { AuthModal } from './components/AuthModal';
 import { LiveQuotesModal } from './components/LiveQuotesModal';
 import { MockCheckoutPage } from './components/MockCheckoutPage';
+import { UserPanel } from './components/UserPanel';
 import { Instagram, Linkedin, Twitter, Facebook } from 'lucide-react';
 
 function App() {
@@ -95,6 +96,7 @@ function App() {
       <InquiryModal />
       <AuthModal />
       <LiveQuotesModal />
+      <UserPanel />
     </div>
   );
 }

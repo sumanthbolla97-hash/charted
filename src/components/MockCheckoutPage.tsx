@@ -64,7 +64,7 @@ export function MockCheckoutPage() {
           </div>
           <div className="space-y-4 mb-6">
             <div className="border border-white/10 p-4">
-              <p className="text-white font-serif">Sophia Bennett</p>
+              <p className="text-white font-serif">Ram Bolla</p>
               <p className="text-xs text-emerald-300 mt-1">Online now</p>
             </div>
             <div className="border border-white/10 p-4">

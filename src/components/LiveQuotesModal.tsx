@@ -2,6 +2,8 @@ import { AnimatePresence, motion } from 'motion/react';
 import { CalendarDays, CircleDollarSign, Clock3, Plane, Users, X } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useUI } from '../context/UIContext';
+import { useAuth } from '../context/AuthContext';
+import { createBooking } from '../services/bookings';
 
 type Quote = {
   aircraft: string;
@@ -50,7 +52,8 @@ function usd(n: number) {
 }
 
 export function LiveQuotesModal() {
-  const { isQuotesOpen, quoteRequest, closeQuotes, openChat } = useUI();
+  const { isQuotesOpen, quoteRequest, closeQuotes, openChat, openAuth } = useUI();
+  const { user } = useAuth();
   const [activeBookedCard, setActiveBookedCard] = useState<string | null>(null);
   const [activeConcierge, setActiveConcierge] = useState<{ name: string; aircraft: string } | null>(null);
   const fadeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -178,13 +181,29 @@ export function LiveQuotesModal() {
                     {q.marketSource}
                   </div>
                   <button
-                    onClick={() => {
+                    onClick={async () => {
                       if (activeBookedCard) return;
+                      if (!user) {
+                        openAuth();
+                        return;
+                      }
                       setActiveBookedCard(q.aircraft);
-                      const conciergeNames = ['Sophia Bennett', 'Ethan Cole', 'Isabella Reed'];
+                      const conciergeNames = ['Ram Bolla', 'Ethan Cole', 'Isabella Reed'];
                       setActiveConcierge({ name: conciergeNames[idx % conciergeNames.length], aircraft: q.aircraft });
                       if (fadeTimerRef.current) clearTimeout(fadeTimerRef.current);
                       fadeTimerRef.current = setTimeout(() => setActiveBookedCard(null), 1800);
+                      try {
+                        await createBooking({
+                          userId: user.uid,
+                          source: 'live_quote',
+                          aircraft: q.aircraft,
+                          route: `${quoteRequest.from || 'Departure'} to ${quoteRequest.to || 'Arrival'}`,
+                          date: quoteRequest.date || 'Flexible date',
+                          amountUsd: usd(q.price),
+                        });
+                      } catch {
+                        // keep UX moving even if write fails
+                      }
                       const params = new URLSearchParams({
                         mockCheckout: '1',
                         aircraft: q.aircraft,

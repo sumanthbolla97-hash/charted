@@ -1,6 +1,9 @@
 import { useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Plane, ArrowRight, Clock3, X, Users, Gauge, CalendarDays, CheckCircle2 } from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
+import { useUI } from '../context/UIContext';
+import { createBooking } from '../services/bookings';
 
 type EmptyLegListing = {
   id: string;
@@ -89,6 +92,8 @@ function statusClass(status: EmptyLegListing['status']) {
 export function EmptyLegs() {
   const [selected, setSelected] = useState<EmptyLegListing | null>(null);
   const [confirmed, setConfirmed] = useState<EmptyLegListing | null>(null);
+  const { user } = useAuth();
+  const { openAuth } = useUI();
 
   const marketPulse = useMemo(() => `${emptyLegs.length} live opportunities`, []);
 
@@ -231,7 +236,23 @@ export function EmptyLegs() {
                 </div>
 
                 <button
-                  onClick={() => {
+                  onClick={async () => {
+                    if (!user) {
+                      openAuth();
+                      return;
+                    }
+                    try {
+                      await createBooking({
+                        userId: user.uid,
+                        source: 'empty_leg',
+                        aircraft: selected.aircraft,
+                        route: `${selected.from} to ${selected.to}`,
+                        date: `${selected.date} - ${selected.departureTime}`,
+                        amountUsd: selected.price,
+                      });
+                    } catch {
+                      // no-op; continue booking UX
+                    }
                     setConfirmed(selected);
                     setSelected(null);
                   }}

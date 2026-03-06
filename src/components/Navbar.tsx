@@ -8,7 +8,7 @@ import { useAuth } from '../context/AuthContext';
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { openFleet, openInquiry, openAuth } = useUI();
+  const { openFleet, openInquiry, openAuth, openUserPanel } = useUI();
   const { user, logout } = useAuth();
 
   useEffect(() => {
@@ -67,6 +67,12 @@ export function Navbar() {
               </button>
             ) : (
               <div className="hidden md:flex items-center gap-4">
+                <button
+                  onClick={openUserPanel}
+                  className="text-[11px] uppercase tracking-[0.15em] text-white hover:text-[#C6A87C] transition-colors"
+                >
+                  Bookings
+                </button>
                 <span className="text-[10px] uppercase tracking-[0.15em] text-gray-300 max-w-[180px] truncate">
                   {user.email}
                 </span>

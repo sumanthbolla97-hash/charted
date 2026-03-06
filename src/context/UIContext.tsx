@@ -26,6 +26,9 @@ interface UIContextType {
   quoteRequest: QuoteRequest | null;
   openQuotes: (request: QuoteRequest) => void;
   closeQuotes: () => void;
+  isUserPanelOpen: boolean;
+  openUserPanel: () => void;
+  closeUserPanel: () => void;
 }
 
 const UIContext = createContext<UIContextType | undefined>(undefined);
@@ -38,6 +41,7 @@ export function UIProvider({ children }: { children: ReactNode }) {
   const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [isQuotesOpen, setIsQuotesOpen] = useState(false);
   const [quoteRequest, setQuoteRequest] = useState<QuoteRequest | null>(null);
+  const [isUserPanelOpen, setIsUserPanelOpen] = useState(false);
 
   const openChat = (msg?: string) => {
     if (msg) setInitialMessage(msg);
@@ -61,6 +65,8 @@ export function UIProvider({ children }: { children: ReactNode }) {
     setIsQuotesOpen(true);
   };
   const closeQuotes = () => setIsQuotesOpen(false);
+  const openUserPanel = () => setIsUserPanelOpen(true);
+  const closeUserPanel = () => setIsUserPanelOpen(false);
 
   return (
     <UIContext.Provider value={{ 
@@ -80,7 +86,10 @@ export function UIProvider({ children }: { children: ReactNode }) {
       isQuotesOpen,
       quoteRequest,
       openQuotes,
-      closeQuotes
+      closeQuotes,
+      isUserPanelOpen,
+      openUserPanel,
+      closeUserPanel
     }}>
       {children}
     </UIContext.Provider>
