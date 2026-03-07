@@ -23,14 +23,16 @@ export function Navbar() {
     <>
       <nav 
         className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-700 px-6 md:px-16 py-6",
-          isScrolled ? "bg-[#050505]/95 backdrop-blur-md py-4 border-b border-white/5 shadow-lg" : "bg-transparent py-8"
+          "fixed top-0 left-0 right-0 z-50 transition-all duration-700 px-4 md:px-12 py-4",
+          isScrolled
+            ? "bg-[#050505]/96 backdrop-blur-md border-b border-[#D4AF37]/20 shadow-[0_8px_40px_rgba(0,0,0,0.45)]"
+            : "bg-transparent"
         )}
       >
-        <div className="max-w-[1400px] mx-auto flex justify-between items-center">
+        <div className="max-w-[1400px] mx-auto flex justify-between items-center border border-white/10 bg-black/35 backdrop-blur-sm px-4 md:px-6 py-3">
           {/* Logo */}
           <a href="#" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 border border-white/20 flex items-center justify-center group-hover:border-[#C6A87C] transition-colors duration-500">
+            <div className="w-10 h-10 border border-white/20 flex items-center justify-center group-hover:border-[#D4AF37] transition-colors duration-500">
                <span className="font-serif text-xl text-white group-hover:text-[#C6A87C] transition-colors">V</span>
             </div>
             <span className="font-sans text-sm tracking-[0.2em] text-white font-light group-hover:text-[#C6A87C] transition-colors duration-500">VISTA</span>

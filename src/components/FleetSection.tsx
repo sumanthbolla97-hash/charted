@@ -3,6 +3,10 @@ import { motion, AnimatePresence } from 'motion/react';
 import { ArrowRight, X, Check, Info, Plane, Users, Gauge, Briefcase, Ruler } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { useUI } from '../context/UIContext';
+import falcon8xCustom from '../assets/falcon-8x-custom.png';
+import challenger650Custom from '../assets/challenger-650-custom.png';
+import gulfstreamG500Custom from '../assets/gulfstream-g500-custom.png';
+import gulfstreamG650erCustom from '../assets/gulfstream-g650er-custom.png';
 
 // --- Types ---
 interface AircraftStats {
@@ -55,7 +59,7 @@ const fleet: Aircraft[] = [
     id: "gulfstream-g650er",
     name: "Gulfstream G650ER",
     category: "Ultra Long Range",
-    image: "https://commons.wikimedia.org/wiki/Special:FilePath/Gulfstream%20G650ER,%20EBACE%202018,%20Le%20Grand-Saconnex%20(BL7C0740).jpg?width=3840",
+    image: gulfstreamG650erCustom,
     description: "The Gulfstream G650ER extends the non-stop reach of the industry's highest performance long-range business aircraft to 7,500 nautical miles.",
     stats: {
       passengers: "19 Passengers",
@@ -78,7 +82,7 @@ const fleet: Aircraft[] = [
     id: "falcon-8x",
     name: "Dassault Falcon 8X",
     category: "Ultra Long Range",
-    image: "https://commons.wikimedia.org/wiki/Special:FilePath/Dassault%20Falcon%208X,%20Paris%20Air%20Show%202019,%20Le%20Bourget%20(SIAE8602).jpg?width=3840",
+    image: falcon8xCustom,
     description: "The Falcon 8X offers the longest range in the Falcon family, along with the most extensive choice of cabin configurations.",
     stats: {
       passengers: "16 Passengers",
@@ -101,7 +105,7 @@ const fleet: Aircraft[] = [
     id: "gulfstream-g500",
     name: "Gulfstream G500",
     category: "Large Jet",
-    image: "https://commons.wikimedia.org/wiki/Special:FilePath/Gulfstream%20G500,%20EBACE%202018,%20Le%20Grand-Saconnex%20(BL7C0677).jpg?width=3840",
+    image: gulfstreamG500Custom,
     description: "The G500 delivers the optimal balance of speed, maneuverability, and comfort that helps you maximize every minute of your travel.",
     stats: {
       passengers: "19 Passengers",
@@ -124,7 +128,7 @@ const fleet: Aircraft[] = [
     id: "challenger-650",
     name: "Challenger 650",
     category: "Large Jet",
-    image: "https://commons.wikimedia.org/wiki/Special:FilePath/Static%20display,%20EBACE%202018,%20Le%20Grand-Saconnex%20(BL7C0611).jpg?width=3840",
+    image: challenger650Custom,
     description: "The Challenger 650 aircraft is the best-selling large business jet platform of all time, offering a wider cabin than any competitor in its class.",
     stats: {
       passengers: "12 Passengers",
@@ -483,10 +487,10 @@ export function FleetOverlay() {
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.05, duration: 0.5 }}
-                  className="group cursor-pointer"
+                  className="group cursor-pointer border border-white/10 bg-[#090909] hover:border-[#C6A87C]/40 transition-colors"
                   onClick={() => setSelectedAircraft(jet)}
                 >
-                  <div className="relative aspect-[3/4] overflow-hidden mb-8 bg-[#111]">
+                  <div className="relative aspect-[4/3] overflow-hidden bg-[#111]">
                     <div className="absolute inset-0 z-10 bg-black/0 group-hover:bg-black/10 transition-colors duration-500" />
                     <ImageWithLoader 
                       src={jet.image} 
@@ -496,30 +500,30 @@ export function FleetOverlay() {
                     
                     {/* Hover Overlay */}
                     <div className="absolute inset-0 z-20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                      <div className="w-16 h-16 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20">
-                        <ArrowRight className="text-white w-6 h-6 -rotate-45" />
+                      <div className="w-14 h-14 rounded-full bg-black/40 backdrop-blur-md flex items-center justify-center border border-[#C6A87C]/50">
+                        <ArrowRight className="text-[#C6A87C] w-5 h-5 -rotate-45" />
                       </div>
                     </div>
                   </div>
                   
-                  <div className="space-y-6">
+                  <div className="p-6 space-y-6">
                     <div>
-                      <p className="text-[#C6A87C] text-[9px] uppercase tracking-[0.2em] mb-2">{jet.category}</p>
-                      <h4 className="text-3xl font-serif text-white font-light group-hover:text-[#C6A87C] transition-colors">{jet.name}</h4>
+                      <p className="text-[#C6A87C] text-[9px] uppercase tracking-[0.28em] mb-3">{jet.category}</p>
+                      <h4 className="text-4xl font-serif text-white font-light leading-none group-hover:text-[#C6A87C] transition-colors">{jet.name}</h4>
                     </div>
 
-                    <div className="flex justify-between border-t border-white/10 pt-4">
+                    <div className="grid grid-cols-3 gap-3 border-t border-white/10 pt-5">
                       <div>
-                        <p className="text-[9px] text-white/40 uppercase tracking-wider mb-1">Passengers</p>
-                        <p className="text-xs text-white font-mono">{jet.stats.passengers}</p>
+                        <p className="text-[9px] text-white/35 uppercase tracking-[0.15em] mb-1">Passengers</p>
+                        <p className="text-xs text-white/90 font-mono">{jet.stats.passengers}</p>
                       </div>
                       <div>
-                        <p className="text-[9px] text-white/40 uppercase tracking-wider mb-1">Range</p>
-                        <p className="text-xs text-white font-mono">{jet.stats.range}</p>
+                        <p className="text-[9px] text-white/35 uppercase tracking-[0.15em] mb-1">Range</p>
+                        <p className="text-xs text-white/90 font-mono">{jet.stats.range}</p>
                       </div>
-                      <div className="text-right">
-                        <p className="text-[9px] text-white/40 uppercase tracking-wider mb-1">Speed</p>
-                        <p className="text-xs text-white font-mono">{jet.stats.speed}</p>
+                      <div>
+                        <p className="text-[9px] text-white/35 uppercase tracking-[0.15em] mb-1">Speed</p>
+                        <p className="text-xs text-white/90 font-mono">{jet.stats.speed}</p>
                       </div>
                     </div>
                   </div>

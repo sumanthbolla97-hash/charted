@@ -1,9 +1,24 @@
 import { motion } from 'motion/react';
-import { ArrowDown } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
+import heroJet from '../assets/hero-jet.png';
+import { useEffect, useState } from 'react';
 
 export function Hero() {
+  const [overlayProgress, setOverlayProgress] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const h = window.innerHeight || 1;
+      const progress = Math.max(0, Math.min(1, window.scrollY / (h * 0.35)));
+      setOverlayProgress(progress);
+    };
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <section className="relative h-screen w-full overflow-hidden">
+    <section className="relative min-h-screen w-full overflow-hidden">
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <motion.div 
@@ -13,47 +28,55 @@ export function Hero() {
           className="w-full h-full"
         >
           <img 
-            src="https://images.unsplash.com/photo-1540962351504-03099e0a754b?q=80&w=2500&auto=format&fit=crop" 
+            src={heroJet}
             alt="Private Jet Exterior" 
             className="w-full h-full object-cover"
-            referrerPolicy="no-referrer"
           />
         </motion.div>
-        <div className="absolute inset-0 bg-black/20" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-[#050505]" />
+        <div className="absolute inset-0 bg-black/20" style={{ opacity: overlayProgress }} />
+        <div
+          className="absolute inset-0 bg-[radial-gradient(circle_at_70%_20%,rgba(198,168,124,0.15),transparent_42%)]"
+          style={{ opacity: overlayProgress }}
+        />
+        <div
+          className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/25 to-[#050505]"
+          style={{ opacity: overlayProgress }}
+        />
       </div>
 
       {/* Content */}
-      <div className="relative z-10 h-full flex flex-col justify-center items-center text-center px-6">
+      <div
+        className="relative z-10 h-full min-h-screen flex flex-col justify-center items-center text-center px-6 pt-24 transition-opacity duration-300"
+        style={{ opacity: overlayProgress }}
+      >
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
-          className="max-w-4xl"
+          className="max-w-5xl"
         >
-          <p className="text-white/80 text-[10px] md:text-xs uppercase tracking-[0.4em] mb-8 font-medium">
-            Global Private Aviation
+          <p className="text-[#D4AF37] text-[10px] md:text-xs uppercase tracking-[0.45em] mb-7 font-medium">
+            Bespoke Private Aviation
           </p>
-          <h1 className="font-serif text-6xl md:text-8xl lg:text-[9rem] text-white mb-8 leading-[0.85] tracking-tight">
-            Beyond <br/> <span className="italic font-light text-white/90">Expectation</span>
+          <h1 className="font-serif text-5xl md:text-7xl lg:text-[8.5rem] text-white mb-8 leading-[0.86] tracking-tight">
+            Fly the <br /> <span className="italic font-light text-[#E7E2D9]">Extraordinary</span>
           </h1>
-          <div className="h-[1px] w-24 bg-white/30 mx-auto mb-8" />
-          <p className="max-w-lg mx-auto text-white/90 text-sm md:text-base leading-relaxed font-light tracking-wide">
-            Experience the world's most advanced fleet. Flying to 187 countries worldwide, we define the standard for private travel.
+          <div className="h-[1px] w-28 bg-[#D4AF37]/50 mx-auto mb-8" />
+          <p className="max-w-2xl mx-auto text-white/85 text-sm md:text-base leading-relaxed font-light tracking-wide">
+            Charter elite aircraft with global reach, curated cabin service, and mission-ready concierge support for every journey.
           </p>
+          <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+            <button className="px-8 py-3 bg-[#D4AF37] text-black uppercase text-[10px] tracking-[0.24em] hover:bg-white transition-colors">
+              Request Charter
+            </button>
+            <button className="px-8 py-3 border border-white/25 text-white uppercase text-[10px] tracking-[0.24em] hover:border-[#D4AF37] hover:text-[#D4AF37] transition-colors inline-flex items-center gap-2">
+              Explore Fleet
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          </div>
         </motion.div>
       </div>
 
-      {/* Scroll Indicator */}
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2, duration: 1 }}
-        className="absolute bottom-12 left-1/2 -translate-x-1/2 z-10 hidden md:flex flex-col items-center gap-4"
-      >
-        <span className="text-[9px] uppercase tracking-[0.2em] text-white/60">Scroll</span>
-        <div className="w-[1px] h-16 bg-gradient-to-b from-white/0 via-white/40 to-white/0" />
-      </motion.div>
     </section>
   );
 }

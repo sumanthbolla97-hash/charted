@@ -58,3 +58,12 @@ html {
 .border-gold {
   border-color: #C6A87C;
 }
+
+/* Ensure native date picker icons are visible on dark UI */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(0);
+  opacity: 1;
+  background: #fff;
+  border-radius: 4px;
+  padding: 2px;
+}

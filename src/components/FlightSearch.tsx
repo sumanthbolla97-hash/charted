@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion } from 'motion/react';
 import { ArrowRight } from 'lucide-react';
 import { cn } from '../lib/utils';
@@ -115,6 +115,7 @@ export function FlightSearch() {
   const [to, setTo] = useState('');
   const [date, setDate] = useState('');
   const [pax, setPax] = useState('1');
+  const dateInputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     const fallback = internationalAirports[0];
@@ -154,9 +155,20 @@ export function FlightSearch() {
     });
   };
 
+  const openDatePicker = () => {
+    const input = dateInputRef.current;
+    if (!input) return;
+    if (typeof input.showPicker === 'function') {
+      input.showPicker();
+    } else {
+      input.focus();
+      input.click();
+    }
+  };
+
   return (
     <div className="w-full max-w-5xl mx-auto relative z-20 -mt-24 px-4">
-      <div className="bg-[#0A0A0A] border border-white/10 p-5 md:p-10 shadow-2xl">
+      <div className="bg-[linear-gradient(160deg,#0D0D0D_0%,#090909_55%,#060606_100%)] border border-[#D4AF37]/20 p-5 md:p-10 shadow-[0_22px_70px_rgba(0,0,0,0.6)]">
         {/* Tabs */}
         <div className="flex flex-wrap justify-center gap-4 md:gap-12 mb-8 md:mb-10">
           {['One Way', 'Round Trip', 'Multi City'].map((type) => (
@@ -182,7 +194,7 @@ export function FlightSearch() {
         </div>
 
         {/* Form Grid */}
-        <div className="border border-white/10">
+        <div className="border border-[#D4AF37]/20 bg-black/20">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-white/10">
           {/* Origin */}
           <div className="p-4 group hover:bg-white/5 transition-colors min-h-[96px]">
@@ -191,7 +203,7 @@ export function FlightSearch() {
               type="text" 
               value={from}
               readOnly
-              className="w-full bg-transparent text-white/90 focus:outline-none font-serif text-xl cursor-not-allowed"
+              className="w-full bg-transparent text-white focus:outline-none font-serif text-xl cursor-not-allowed"
             />
           </div>
 
@@ -203,18 +215,23 @@ export function FlightSearch() {
               value={to}
               onChange={(e) => setTo(e.target.value)}
               placeholder="Arrival" 
-              className="w-full bg-transparent text-white placeholder:text-white/20 focus:outline-none font-serif text-xl"
+              className="w-full bg-transparent text-white placeholder:text-white/80 focus:outline-none font-serif text-xl"
             />
           </div>
 
           {/* Date */}
-          <div className="p-4 group hover:bg-white/5 transition-colors min-h-[96px]">
+          <div
+            className="p-4 group hover:bg-white/5 transition-colors min-h-[96px] cursor-pointer"
+            onClick={openDatePicker}
+          >
             <label className="text-[9px] uppercase tracking-[0.2em] text-white/40 block mb-2">Date</label>
             <input 
+              ref={dateInputRef}
               type="date" 
               value={date}
               onChange={(e) => setDate(e.target.value)}
-              className="w-full bg-transparent text-white placeholder:text-white/20 focus:outline-none font-sans text-sm uppercase tracking-wider"
+              onClick={(e) => e.stopPropagation()}
+              className="w-full bg-transparent text-white focus:outline-none font-sans text-sm uppercase tracking-wider [color-scheme:light]"
             />
           </div>
 

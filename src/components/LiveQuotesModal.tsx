@@ -114,6 +114,39 @@ export function LiveQuotesModal() {
     });
   }, [quoteRequest]);
 
+  const bookQuote = async (q: Quote, idx: number) => {
+    if (activeBookedCard) return;
+    if (!user) {
+      openAuth();
+      return;
+    }
+    setActiveBookedCard(q.aircraft);
+    const conciergeNames = ['Ram Bolla', 'Ethan Cole', 'Isabella Reed'];
+    setActiveConcierge({ name: conciergeNames[idx % conciergeNames.length], aircraft: q.aircraft });
+    if (fadeTimerRef.current) clearTimeout(fadeTimerRef.current);
+    fadeTimerRef.current = setTimeout(() => setActiveBookedCard(null), 1800);
+    try {
+      await createBooking({
+        userId: user.uid,
+        source: 'live_quote',
+        aircraft: q.aircraft,
+        route: `${quoteRequest?.from || 'Departure'} to ${quoteRequest?.to || 'Arrival'}`,
+        date: quoteRequest?.date || 'Flexible date',
+        amountUsd: usd(q.price),
+      });
+    } catch {
+      // keep UX moving even if write fails
+    }
+    const params = new URLSearchParams({
+      mockCheckout: '1',
+      aircraft: q.aircraft,
+      route: `${quoteRequest?.from || 'Departure'} to ${quoteRequest?.to || 'Arrival'}`,
+      date: quoteRequest?.date || 'Flexible date',
+      amount: String(Math.round(q.price)),
+    });
+    window.location.href = `${window.location.origin}/?${params.toString()}`;
+  };
+
   return (
     <AnimatePresence>
       {isQuotesOpen && quoteRequest && (
@@ -161,7 +194,11 @@ export function LiveQuotesModal() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-0 divide-y md:divide-y-0 md:divide-x divide-white/10">
               {quotes.map((q, idx) => (
-                <div key={q.aircraft} className="relative p-6 md:p-7 overflow-hidden">
+                <div
+                  key={q.aircraft}
+                  className="relative p-6 md:p-7 overflow-hidden cursor-pointer hover:bg-white/[0.03] transition-colors"
+                  onClick={() => void bookQuote(q, idx)}
+                >
                   <img
                     src={q.image}
                     alt={q.aircraft}
@@ -181,37 +218,10 @@ export function LiveQuotesModal() {
                     {q.marketSource}
                   </div>
                   <button
-                    onClick={async () => {
-                      if (activeBookedCard) return;
-                      if (!user) {
-                        openAuth();
-                        return;
-                      }
-                      setActiveBookedCard(q.aircraft);
-                      const conciergeNames = ['Ram Bolla', 'Ethan Cole', 'Isabella Reed'];
-                      setActiveConcierge({ name: conciergeNames[idx % conciergeNames.length], aircraft: q.aircraft });
-                      if (fadeTimerRef.current) clearTimeout(fadeTimerRef.current);
-                      fadeTimerRef.current = setTimeout(() => setActiveBookedCard(null), 1800);
-                      try {
-                        await createBooking({
-                          userId: user.uid,
-                          source: 'live_quote',
-                          aircraft: q.aircraft,
-                          route: `${quoteRequest.from || 'Departure'} to ${quoteRequest.to || 'Arrival'}`,
-                          date: quoteRequest.date || 'Flexible date',
-                          amountUsd: usd(q.price),
-                        });
-                      } catch {
-                        // keep UX moving even if write fails
-                      }
-                      const params = new URLSearchParams({
-                        mockCheckout: '1',
-                        aircraft: q.aircraft,
-                        route: `${quoteRequest.from || 'Departure'} to ${quoteRequest.to || 'Arrival'}`,
-                        date: quoteRequest.date || 'Flexible date',
-                        amount: String(Math.round(q.price)),
-                      });
-                      window.location.href = `${window.location.origin}/?${params.toString()}`;
+                    type="button"
+                    onClick={async (e) => {
+                      e.stopPropagation();
+                      await bookQuote(q, idx);
                     }}
                     disabled={Boolean(activeBookedCard)}
                     className="w-full mt-6 py-3 bg-[#D4AF37] text-black font-semibold uppercase text-[10px] tracking-[0.2em] hover:bg-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
